@@ -1,7 +1,7 @@
 import { Action, createSelector, createFeatureSelector } from '@ngrx/store';
 import { AppState } from '../reducers';
 import { Board } from './models/board';
-import { BingoGameActions } from './bingo-game.actions';
+import { BingoGameActions, BingoGameActionTypes } from './bingo-game.actions';
 
 
 export const bingoGameFeatureKey = 'bingoGame';
@@ -16,7 +16,13 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: BingoGameActions): State {
   switch (action.type) {
-
+    case BingoGameActionTypes.AddBoard:
+      return {
+        ...state, boards: [
+          ...state.boards,
+          action.payload.board,
+        ]
+      };
     default:
       return state;
   }

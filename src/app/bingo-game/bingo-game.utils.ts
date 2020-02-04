@@ -1,5 +1,6 @@
 export const BINGO_MIN = 1;
 export const BINGO_MAX = 53;
+export const BOARD_SIZE = 5;
 
 export function generateUUID(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);

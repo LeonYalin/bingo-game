@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from '../reducers';
+import { Store, select } from '@ngrx/store';
+import { Board } from './models/board';
+import { AddBoard } from './bingo-game.actions';
+import * as fromBingoGame from './bingo-game.reducer';
 
 @Component({
   selector: 'app-bingo-game',
@@ -6,12 +11,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bingo-game.component.scss']
 })
 export class BingoGameComponent implements OnInit {
-  constructor() { }
+  boards$ = this.store.pipe(select(fromBingoGame.selectBoards));
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
   }
 
   onAddBoardClick() {
-    // TODO
+    const board = new Board();
+    this.store.dispatch(new AddBoard({ board }));
   }
 }

@@ -1,12 +1,14 @@
 import { Action } from '@ngrx/store';
+import { Board } from './models/board';
 
 export enum BingoGameActionTypes {
-  LoadBingoGames = '[BingoGame] Load BingoGames',
+  AddBoard = '[BingoGame] Add Board',
 }
 
-export class LoadBingoGames implements Action {
-  readonly type = BingoGameActionTypes.LoadBingoGames;
+export class AddBoard implements Action {
+  readonly type = BingoGameActionTypes.AddBoard;
+  constructor(public payload: { board: Board }) { }
 }
 
 export type BingoGameActions =
-  LoadBingoGames;
+AddBoard;
