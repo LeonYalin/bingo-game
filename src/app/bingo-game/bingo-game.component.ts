@@ -11,4 +11,7 @@ export class BingoGameComponent implements OnInit {
   ngOnInit() {
   }
 
+  onAddBoardClick() {
+    // TODO
+  }
 }

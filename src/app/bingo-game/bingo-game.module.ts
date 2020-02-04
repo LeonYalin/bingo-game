@@ -6,6 +6,8 @@ import { BingoGameComponent } from './bingo-game.component';
 import { PlayerBoardComponent } from './bingo-board/player-board.component';
 import { BingoGameHeaderComponent } from './bingo-game-header/bingo-game-header.component';
 import { BingoGameContentComponent } from './bingo-game-content/bingo-game-content.component';
+import { EffectsModule } from '@ngrx/effects';
+import { BingoGameEffects } from './bingo-game.effects';
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { BingoGameContentComponent } from './bingo-game-content/bingo-game-conte
     BingoGameRoutingModule,
     MatIconModule,
     MatButtonModule,
+    EffectsModule.forFeature([BingoGameEffects]),
   ]
 })
 export class BingoGameModule { }

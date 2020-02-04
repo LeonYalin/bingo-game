@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-bingo-game-header',
@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bingo-game-header.component.scss']
 })
 export class BingoGameHeaderComponent implements OnInit {
+  @Output() addBoardClick = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }
