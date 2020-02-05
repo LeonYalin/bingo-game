@@ -9,3 +9,12 @@
   color: white;
   text-transform: uppercase;
 }
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bingo-board-container {
+  padding: 20px;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AppState } from '../reducers';
 import { Store, select } from '@ngrx/store';
 import { Board } from './models/board';
@@ -8,7 +8,8 @@ import * as fromBingoGame from './bingo-game.reducer';
 @Component({
   selector: 'app-bingo-game',
   templateUrl: './bingo-game.component.html',
-  styleUrls: ['./bingo-game.component.scss']
+  styleUrls: ['./bingo-game.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BingoGameComponent implements OnInit {
   boards$ = this.store.pipe(select(fromBingoGame.selectBoards));

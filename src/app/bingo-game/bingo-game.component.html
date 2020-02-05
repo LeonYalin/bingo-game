@@ -5,8 +5,9 @@
     <button mat-raised-button color="accent" (click)="onAddBoardClick()">Add board</button>
   </div>
 
-  <div *ngFor="let board of boards$ | async">
-    <app-bingo-board [board]="board"></app-bingo-board>
+  <div class="content">
+    <div class="bingo-board-container" *ngFor="let board of boards$ | async">
+      <app-bingo-board [board]="board"></app-bingo-board>
+    </div>
   </div>
-
 </div>

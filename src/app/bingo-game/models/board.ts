@@ -3,6 +3,7 @@ import { generateUUID, BINGO_MIN, BINGO_MAX, generateNumbers, BOARD_SIZE } from 
 export class Board {
   id: string;
   numbers: number[] = [];
+  activeNumbers: number[] = [];
 
   constructor(public size: number = BOARD_SIZE) {
     this.id = generateUUID();
