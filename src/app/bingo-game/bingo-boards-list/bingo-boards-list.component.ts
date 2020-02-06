@@ -20,7 +20,6 @@ export class BingoBoardsListComponent implements OnInit {
   isBingo(board: Board): boolean {
     const isBingo = hasBingo(board, this.drawnNumbers);
     if (isBingo) {
-      // this.store.dispatch(new Bingo({ board }));
       this.bingo.emit(board);
     }
     return isBingo;

@@ -39,7 +39,7 @@ export function generateNumbers(min: number, max: number, size: number) {
 function hasBingoInRow(board: Board, index: number, drawnNumbers: number[]): boolean {
   const rowNumbers = [];
   for (let i = 0; i < board.size; i++) {
-    rowNumbers.push(board.numbers[index + i]);
+    rowNumbers.push(board.numbers[(index * board.size) + i]);
   }
   return rowNumbers.every(num => drawnNumbers.includes(num));
 }
@@ -47,15 +47,24 @@ function hasBingoInRow(board: Board, index: number, drawnNumbers: number[]): boo
 function hasBingoInColumn(board: Board, index: number, drawnNumbers: number[]): boolean {
   const columnNumbers = [];
   for (let i = 0; i < board.size; i++) {
-    columnNumbers.push(board.numbers[(index * board.size) + i]);
+    columnNumbers.push(board.numbers[index + (i * board.size)]);
   }
   return columnNumbers.every(num => drawnNumbers.includes(num));
 }
 
 function hasBingoInDiagonal(board: Board, drawnNumbers: number[], side: 'left' | 'right'): boolean {
   const diagonalNumbers = [];
-  for (let i = 0; i < board.size; i++) {
-    diagonalNumbers.push(board.numbers[i * board.size]);
+  switch (side) {
+    case 'left':
+      for (let i = 0; i < board.size; i++) {
+        diagonalNumbers.push(board.numbers[(i * board.size) + i]);
+      };
+      break;
+    case 'right':
+      for (let i = 0; i < board.size; i++) {
+        diagonalNumbers.push(board.numbers[(i * board.size) + ((board.size - 1) - i)]);
+      };
+      break;
   }
   return diagonalNumbers.every(num => drawnNumbers.includes(num));
 }
