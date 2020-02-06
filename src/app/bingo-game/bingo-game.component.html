@@ -1,7 +1,7 @@
 <div id="bingo-board">
 
   <div class="header">
-    <span>Bingo Game</span>
+    <img class="bingo-logo-small" src="assets/bingo-logo-small.png" alt="Bingo logo">
     <div *ngIf="!(gameIsRunning$ | async)">
       <button class="start-game-btn" mat-raised-button (click)="onStartGameClick()"
         *ngIf="(boards$ | async)?.length">Start game</button>
@@ -27,6 +27,7 @@
 
 <ng-template #emptyState>
   <div class="empty-state">
+    <img class="bingo-logo" src="assets/bingo-logo.png" alt="Bingo logo">
     Welcome to the Bingo Game!<br />
     To start the game, add some player boards.<br />
     Then, press the "Start Game" button.<br />
