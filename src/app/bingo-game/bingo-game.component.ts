@@ -4,7 +4,6 @@ import { Store, select } from '@ngrx/store';
 import { Board } from './models/board';
 import { AddBoard, StartGame, Bingo } from './bingo-game.actions';
 import * as fromBingoGame from './bingo-game.reducer';
-import { animate, style, transition, trigger, state } from '@angular/animations';
 import { hasBingo } from './bingo-game.utils';
 
 @Component({
@@ -12,20 +11,6 @@ import { hasBingo } from './bingo-game.utils';
   templateUrl: './bingo-game.component.html',
   styleUrls: ['./bingo-game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('scale', [
-      transition(':enter', [
-        style({ transform: 'scale(0)' }),
-        animate('200ms', style({ transform: 'scale(1)' })),
-      ])
-    ]),
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('1500ms', style({ opacity: 1 })),
-      ])
-    ]),
-  ]
 })
 export class BingoGameComponent implements OnInit {
   gameIsRunning$ = this.store.pipe(select(fromBingoGame.selectGameIsRunning));
@@ -38,19 +23,14 @@ export class BingoGameComponent implements OnInit {
   }
 
   onAddBoardClick() {
-    const board = new Board();
-    this.store.dispatch(new AddBoard({ board }));
+    this.store.dispatch(new AddBoard({ board: new Board() }));
   }
 
   onStartGameClick() {
     this.store.dispatch(new StartGame());
   }
 
-  isBingo(board: Board, drawnNumbers: number[]): boolean {
-    const isBingo = hasBingo(board, drawnNumbers);
-    if (isBingo) {
-      this.store.dispatch(new Bingo({ board }));
-    }
-    return isBingo;
+  onBingo(board: Board) {
+    this.store.dispatch(new Bingo({ board }));
   }
 }

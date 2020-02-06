@@ -6,10 +6,13 @@ import { BingoGameComponent } from './bingo-game.component';
 import { BingoBoardComponent } from './bingo-board/bingo-board.component';
 import { EffectsModule } from '@ngrx/effects';
 import { BingoGameEffects } from './bingo-game.effects';
+import { BingoHeaderComponent } from './bingo-header/bingo-header.component';
+import { BingoDrawnNumbersComponent } from './bingo-drawn-numbers/bingo-drawn-numbers.component';
+import { BingoBoardsListComponent } from './bingo-boards-list/bingo-boards-list.component';
 
 
 @NgModule({
-  declarations: [BingoGameComponent, BingoBoardComponent],
+  declarations: [BingoGameComponent, BingoBoardComponent, BingoHeaderComponent, BingoDrawnNumbersComponent, BingoBoardsListComponent],
   imports: [
     CommonModule,
     BingoGameRoutingModule,

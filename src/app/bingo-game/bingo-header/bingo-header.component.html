@@ -1,0 +1,8 @@
+<div class="header">
+  <img class="bingo-logo-small" src="assets/bingo-logo-small.png" alt="Bingo logo">
+  <div *ngIf="!gameIsRunning">
+    <button class="start-game-btn" mat-raised-button (click)="onStartGameClick()"
+      *ngIf="boardsExist">Start game</button>
+    <button mat-raised-button color="accent" (click)="onAddBoardClick()">Add board</button>
+  </div>
+</div>

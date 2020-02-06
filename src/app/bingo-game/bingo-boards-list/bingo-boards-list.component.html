@@ -1,0 +1,16 @@
+<div class="bingo-board-list-wrapper" *ngIf="boards.length; else emptyState">
+  <div class="bingo-board-container" *ngFor="let board of boards">
+    <app-bingo-board [board]="board" [drawnNumbers]="drawnNumbers" [bingo]="isBingo(board)">
+    </app-bingo-board>
+  </div>
+</div>
+
+<ng-template #emptyState>
+  <div class="empty-state">
+    <img class="bingo-logo" src="assets/bingo-logo.png" alt="Bingo logo">
+    Welcome to the Bingo Game!<br />
+    To start the game, add some player boards.<br />
+    Then, press the "Start Game" button.<br />
+    Good Luck!
+  </div>
+</ng-template>
