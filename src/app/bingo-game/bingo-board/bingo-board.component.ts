@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Board } from '../models/board';
 
 @Component({
@@ -9,6 +9,8 @@ import { Board } from '../models/board';
 })
 export class BingoBoardComponent implements OnInit {
   @Input() board: Board;
+  @Input() drawnNumbers: number[];
+  @Input() bingo: boolean = false;
 
   constructor() { }
 
@@ -16,6 +18,6 @@ export class BingoBoardComponent implements OnInit {
   }
 
   isNumberMatched(num: number): boolean {
-    return this.board.matchedNumbers.includes(num);
+    return this.drawnNumbers.includes(num);
   }
 }

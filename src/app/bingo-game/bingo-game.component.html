@@ -3,8 +3,7 @@
   <div class="header">
     <span>Bingo Game</span>
     <div *ngIf="!(gameIsRunning$ | async)">
-      <button class="start-game-btn" mat-raised-button
-        (click)="onStartGameClick()"
+      <button class="start-game-btn" mat-raised-button (click)="onStartGameClick()"
         *ngIf="(boards$ | async)?.length">Start game</button>
       <button mat-raised-button color="accent" (click)="onAddBoardClick()">Add board</button>
     </div>
@@ -15,8 +14,22 @@
   </div>
 
   <div class="content">
-    <div class="bingo-board-container" *ngFor="let board of boards$ | async">
-      <app-bingo-board [board]="board"></app-bingo-board>
-    </div>
+    <ng-container *ngIf="boards$ | async as boards">
+      <ng-container *ngIf="boards.length; else emptyState">
+        <div class="bingo-board-container" *ngFor="let board of boards">
+          <app-bingo-board [board]="board" [drawnNumbers]="drawnNumbers$ | async"
+            [bingo]="isBingo(board, (drawnNumbers$ | async))"></app-bingo-board>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #emptyState>
+  <div class="empty-state">
+    Welcome to the Bingo Game!<br />
+    To start the game, add some player boards.<br />
+    Then, press the "Start Game" button.<br />
+    Good Luck!
+  </div>
+</ng-template>

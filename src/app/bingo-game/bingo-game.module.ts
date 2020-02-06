@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatListModule, MatIconModule, MatButtonModule, MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { BingoGameRoutingModule } from './bingo-game-routing.module';
 import { BingoGameComponent } from './bingo-game.component';
 import { BingoBoardComponent } from './bingo-board/bingo-board.component';
@@ -15,6 +15,7 @@ import { BingoGameEffects } from './bingo-game.effects';
     BingoGameRoutingModule,
     MatIconModule,
     MatButtonModule,
+    MatSnackBarModule,
     EffectsModule.forFeature([BingoGameEffects]),
   ]
 })

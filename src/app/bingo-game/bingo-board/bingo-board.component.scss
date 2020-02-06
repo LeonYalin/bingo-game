@@ -6,6 +6,14 @@
   border-radius: 4px;
   padding: 6px;
   box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  transition: box-shadow 0.3s ease-in-out;
+
+  &.is-bingo {
+    box-shadow: 0 3px 10px 0 rgb(255, 64, 129), 0 3px 10px 0 rgb(255, 64, 129);
+    .header-cell {
+      background-color: #ff4081;
+    }
+  }
 }
 
 .bingo-board-cell {
@@ -14,12 +22,12 @@
   justify-content: center;
   border-radius: 4px;
   background: white;
+  transition: background-color 200ms linear;
   &:hover {
     background: lightcyan;
   }
   &.active {
-    background-color: #ff4081;
-    color: white;
+    background: #ffde03;
   }
 
   &.header-cell {

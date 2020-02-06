@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AppState } from '../reducers';
 import { Store, select } from '@ngrx/store';
 import { Board } from './models/board';
-import { AddBoard, DrawNumber, StartGame } from './bingo-game.actions';
+import { AddBoard, StartGame, Bingo } from './bingo-game.actions';
 import * as fromBingoGame from './bingo-game.reducer';
 import { animate, style, transition, trigger, state } from '@angular/animations';
+import { hasBingo } from './bingo-game.utils';
 
 @Component({
   selector: 'app-bingo-game',
@@ -43,5 +44,13 @@ export class BingoGameComponent implements OnInit {
 
   onStartGameClick() {
     this.store.dispatch(new StartGame());
+  }
+
+  isBingo(board: Board, drawnNumbers: number[]): boolean {
+    const isBingo = hasBingo(board, drawnNumbers);
+    if (isBingo) {
+      this.store.dispatch(new Bingo({ board }));
+    }
+    return isBingo;
   }
 }

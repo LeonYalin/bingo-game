@@ -41,6 +41,13 @@ export function reducer(state = initialState, action: BingoGameActions): State {
         ...state,
         drawnNumbers: [...state.drawnNumbers, action.payload.num],
       };
+    case BingoGameActionTypes.ResetData:
+      return {
+        ...state,
+        boards: [],
+        drawnNumbers: [],
+        gameIsRunning: false,
+      }
     default:
       return state;
   }
