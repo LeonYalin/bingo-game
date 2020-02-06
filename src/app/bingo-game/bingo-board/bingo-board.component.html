@@ -1,5 +1,5 @@
 <div class="bingo-board" [ngStyle]="{'grid-template-columns': 'repeat(' + board.size + ', 1fr)'}">
   <div class="bingo-board-cell header-cell" *ngFor="let char of ['b', 'i', 'n', 'g', 'o']">{{char}}</div>
   <div class="bingo-board-cell" *ngFor="let number of board.numbers"
-    [ngClass]="{'active': isNumberActive(number)}">{{number}}</div>
+    [ngClass]="{'active': isNumberMatched(number)}">{{number}}</div>
 </div>

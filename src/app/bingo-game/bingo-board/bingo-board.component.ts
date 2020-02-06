@@ -15,7 +15,7 @@ export class BingoBoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  isNumberActive(number: number): boolean {
-    return this.board.activeNumbers.includes(number);
+  isNumberMatched(num: number): boolean {
+    return this.board.matchedNumbers.includes(num);
   }
 }

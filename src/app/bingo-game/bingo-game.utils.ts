@@ -24,7 +24,8 @@ export function generateNumbers(min: number, max: number, size: number) {
     pool.push(i);
   }
 
-  for (let i = 0; i < size ** 2; i++) {
+  for (let i = 0; i < size; i++) {
+    if (pool.length === 0) { break; }
     const index = getRandomInt(0, pool.length - 1);
     numbers.push(pool[index]);
     pool.splice(index, 1);

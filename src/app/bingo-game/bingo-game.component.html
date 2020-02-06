@@ -2,7 +2,16 @@
 
   <div class="header">
     <span>Bingo Game</span>
-    <button mat-raised-button color="accent" (click)="onAddBoardClick()">Add board</button>
+    <div *ngIf="!(gameIsRunning$ | async)">
+      <button class="start-game-btn" mat-raised-button
+        (click)="onStartGameClick()"
+        *ngIf="(boards$ | async)?.length">Start game</button>
+      <button mat-raised-button color="accent" (click)="onAddBoardClick()">Add board</button>
+    </div>
+  </div>
+
+  <div class="drawn-numbers" *ngIf="(gameIsRunning$ | async) || (drawnNumbers$ | async)?.length" @fade>
+    <div class="drawn-number" *ngFor="let num of drawnNumbers$ | async" @scale>{{num}}</div>
   </div>
 
   <div class="content">

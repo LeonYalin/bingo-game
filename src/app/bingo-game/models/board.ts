@@ -3,10 +3,10 @@ import { generateUUID, BINGO_MIN, BINGO_MAX, generateNumbers, BOARD_SIZE } from 
 export class Board {
   id: string;
   numbers: number[] = [];
-  activeNumbers: number[] = [];
+  matchedNumbers: number[] = [];
 
   constructor(public size: number = BOARD_SIZE) {
     this.id = generateUUID();
-    this.numbers = generateNumbers(BINGO_MIN, BINGO_MAX, size);
+    this.numbers = generateNumbers(BINGO_MIN, BINGO_MAX, size ** 2);
   }
 }
