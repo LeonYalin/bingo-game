@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Board } from '../models/board';
 import { hasBingo } from '../bingo-game.utils';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import * as fromBingoGame from '../bingo-game.reducer';
 
 
 @Component({
@@ -13,7 +12,7 @@ import * as fromBingoGame from '../bingo-game.reducer';
   styleUrls: ['./bingo-boards-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BingoBoardsListComponent implements OnInit, OnChanges {
+export class BingoBoardsListComponent implements OnInit {
   @Input() boards: Board[];
   @Input() drawnNumbers: number[];
   @Input() bingoNumbers: number[];
@@ -24,11 +23,6 @@ export class BingoBoardsListComponent implements OnInit, OnChanges {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-
   }
 
   isBingo(board: Board): boolean {

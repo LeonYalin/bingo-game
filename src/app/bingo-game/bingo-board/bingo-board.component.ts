@@ -23,6 +23,6 @@ export class BingoBoardComponent implements OnInit {
   }
 
   isBingoNumber(num: number): boolean {
-    return this.bingoNumbers.includes(num);
+    return this.bingo && this.bingoNumbers.includes(num);
   }
 }
