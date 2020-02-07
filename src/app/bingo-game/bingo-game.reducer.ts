@@ -8,12 +8,14 @@ export const bingoGameFeatureKey = 'bingoGame';
 export interface State {
   boards: Board[];
   drawnNumbers: number[];
+  bingoNumbers: number[];
   gameIsRunning: boolean;
 }
 
 export const initialState: State = {
   boards: [],
   drawnNumbers: [],
+  bingoNumbers: [],
   gameIsRunning: false,
 };
 
@@ -36,6 +38,11 @@ export function reducer(state = initialState, action: BingoGameActions): State {
         ...state,
         gameIsRunning: false,
       };
+    case BingoGameActionTypes.SetBingoNumbers:
+      return {
+        ...state,
+        bingoNumbers: [...state.bingoNumbers, ...action.payload.bingoNumbers],
+      };
     case BingoGameActionTypes.DrawNumber:
       return {
         ...state,
@@ -45,7 +52,7 @@ export function reducer(state = initialState, action: BingoGameActions): State {
       return {
         ...state,
         ...initialState,
-      }
+      };
     default:
       return state;
   }
@@ -59,6 +66,10 @@ export const selectBoards = createSelector(
 export const selectDrawnNumbers = createSelector(
   bingoGameFeatureSelector,
   (state: State) => state.drawnNumbers,
+);
+export const selectBingoNumbers = createSelector(
+  bingoGameFeatureSelector,
+  (state: State) => state.bingoNumbers,
 );
 export const selectGameIsRunning = createSelector(
   bingoGameFeatureSelector,

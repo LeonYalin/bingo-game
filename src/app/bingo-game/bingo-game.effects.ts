@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { BingoGameActionTypes, DrawNumber, EndGame, ResetData } from './bingo-game.actions';
+import { BingoGameActionTypes, DrawNumber, EndGame, ResetData, SetBingoNumbers } from './bingo-game.actions';
 import { switchMap, map, takeWhile } from 'rxjs/operators';
 import { interval, of } from 'rxjs';
-import { BINGO_MIN, BINGO_MAX, generateNumbers, getRandomInt } from './bingo-game.utils';
+import { BINGO_MIN, BINGO_MAX, generateNumbers, getRandomInt, DRAW_INTERVAL } from './bingo-game.utils';
 import { MatSnackBar } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
@@ -23,7 +23,8 @@ export class BingoGameEffects {
       });
       const pool = generateNumbers(BINGO_MIN, BINGO_MAX, BINGO_MAX);
       this.drawIsActive = true;
-      return interval(200).pipe(
+
+      return interval(DRAW_INTERVAL).pipe(
         takeWhile(_ => (pool.length > 0 && this.drawIsActive)),
         map(() => {
           const index = getRandomInt(0, pool.length - 1);
@@ -31,7 +32,6 @@ export class BingoGameEffects {
           pool.splice(index, 1);
           const dn = new DrawNumber({ num });
           if (pool.length === 0) {
-            const eg = new EndGame();
             this.drawIsActive = false;
           }
           return dn;
@@ -52,7 +52,7 @@ export class BingoGameEffects {
           this.store.dispatch(new ResetData());
         }
       });
-      return of (new EndGame());
+      return of(new EndGame());
     })
   );
 

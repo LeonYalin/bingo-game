@@ -3,6 +3,7 @@ import { Board } from './models/board';
 export const BINGO_MIN = 1;
 export const BINGO_MAX = 53;
 export const BOARD_SIZE = 5;
+export const DRAW_INTERVAL = 2000;
 
 export function generateUUID(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -36,24 +37,26 @@ export function generateNumbers(min: number, max: number, size: number) {
   return numbers;
 }
 
-function hasBingoInRow(board: Board, index: number, drawnNumbers: number[]): boolean {
-  const rowNumbers = [];
+function hasBingoInRow(board: Board, index: number, drawnNumbers: number[]): [boolean, number[]] {
+  const rowNumbers: number[] = [];
   for (let i = 0; i < board.size; i++) {
     rowNumbers.push(board.numbers[(index * board.size) + i]);
   }
-  return rowNumbers.every(num => drawnNumbers.includes(num));
+  const isBingo = rowNumbers.every(num => drawnNumbers.includes(num));
+  return [isBingo, rowNumbers];
 }
 
-function hasBingoInColumn(board: Board, index: number, drawnNumbers: number[]): boolean {
-  const columnNumbers = [];
+function hasBingoInColumn(board: Board, index: number, drawnNumbers: number[]): [boolean, number[]] {
+  const columnNumbers: number[] = [];
   for (let i = 0; i < board.size; i++) {
     columnNumbers.push(board.numbers[index + (i * board.size)]);
   }
-  return columnNumbers.every(num => drawnNumbers.includes(num));
+  const isBingo = columnNumbers.every(num => drawnNumbers.includes(num));
+  return [isBingo, columnNumbers];
 }
 
-function hasBingoInDiagonal(board: Board, drawnNumbers: number[], side: 'left' | 'right'): boolean {
-  const diagonalNumbers = [];
+function hasBingoInDiagonal(board: Board, drawnNumbers: number[], side: 'left' | 'right'): [boolean, number[]] {
+  const diagonalNumbers: number[] = [];
   switch (side) {
     case 'left':
       for (let i = 0; i < board.size; i++) {
@@ -66,16 +69,32 @@ function hasBingoInDiagonal(board: Board, drawnNumbers: number[], side: 'left' |
       };
       break;
   }
-  return diagonalNumbers.every(num => drawnNumbers.includes(num));
+  const isBingo = diagonalNumbers.every(num => drawnNumbers.includes(num));
+  return [isBingo, diagonalNumbers];
 }
 
-export function hasBingo(board: Board, drawnNumbers: number[]): boolean {
+export function hasBingo(board: Board, drawnNumbers: number[]): [boolean, number[]] {
   for (let i = 0; i < board.size; i++) {
-    if (hasBingoInRow(board, i, drawnNumbers)) return true;
-    if (hasBingoInColumn(board, i, drawnNumbers)) return true;
-  }
-  if (hasBingoInDiagonal(board, drawnNumbers, 'left')) return true;
-  if (hasBingoInDiagonal(board, drawnNumbers, 'right')) return true;
+    const [isBingoInRow, rowNumbers] = hasBingoInRow(board, i, drawnNumbers);
+    if (isBingoInRow) {
+      return [true, rowNumbers];
+    }
 
-  return false;
+    const [isBingoInColumn, columnNumbers] = hasBingoInColumn(board, i, drawnNumbers);
+    if (isBingoInColumn) {
+      return [true, columnNumbers];
+    }
+  }
+
+  const [isBingoIndiagonalLeft, diagonalNumbersLeft] = hasBingoInDiagonal(board, drawnNumbers, 'left');
+  if (isBingoIndiagonalLeft) {
+    return [true, diagonalNumbersLeft];
+  }
+
+  const [isBingoIndiagonalRight, diagonalNumbersRight] = hasBingoInDiagonal(board, drawnNumbers, 'right');
+  if (isBingoIndiagonalRight) {
+    return [true, diagonalNumbersRight];
+  }
+
+  return [false, []];
 }

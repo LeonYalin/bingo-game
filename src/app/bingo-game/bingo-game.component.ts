@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AppState } from '../reducers';
 import { Store, select } from '@ngrx/store';
 import { Board } from './models/board';
-import { AddBoard, StartGame, Bingo } from './bingo-game.actions';
+import { AddBoard, StartGame, Bingo, SetBingoNumbers } from './bingo-game.actions';
 import * as fromBingoGame from './bingo-game.reducer';
 import { hasBingo } from './bingo-game.utils';
 
@@ -16,6 +16,7 @@ export class BingoGameComponent implements OnInit {
   gameIsRunning$ = this.store.pipe(select(fromBingoGame.selectGameIsRunning));
   boards$ = this.store.pipe(select(fromBingoGame.selectBoards));
   drawnNumbers$ = this.store.pipe(select(fromBingoGame.selectDrawnNumbers));
+  bingoNumbers$ = this.store.pipe(select(fromBingoGame.selectBingoNumbers));
 
   constructor(private store: Store<AppState>) { }
 
@@ -30,7 +31,10 @@ export class BingoGameComponent implements OnInit {
     this.store.dispatch(new StartGame());
   }
 
-  onBingo(board: Board) {
-    this.store.dispatch(new Bingo({ board }));
+  onBingo({ board, bingoNumbers }) {
+    this.store.dispatch(new SetBingoNumbers({ bingoNumbers }));
+    setTimeout(() => {
+      this.store.dispatch(new Bingo({ board }));
+    });
   }
 }

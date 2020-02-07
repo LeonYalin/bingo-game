@@ -8,7 +8,8 @@
   </ng-container>
 
   <div class="content">
-    <app-bingo-boards-list class="boards-list" [boards]="boards$ | async" [drawnNumbers]="drawnNumbers$ | async" (bingo)="onBingo($event)">
+    <app-bingo-boards-list class="boards-list" [boards]="boards$ | async" [drawnNumbers]="drawnNumbers$ | async"
+      [bingoNumbers]="bingoNumbers$ | async" (bingo)="onBingo($event)">
     </app-bingo-boards-list>
   </div>
 </div>

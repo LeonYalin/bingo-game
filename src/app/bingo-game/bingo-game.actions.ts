@@ -7,6 +7,7 @@ export enum BingoGameActionTypes {
   EndGame = '[BingoGame] End Game',
   DrawNumber = '[BingoGame] Draw Number',
   Bingo = '[BingoGame] Bingo',
+  SetBingoNumbers = '[BingoGame] Set Bingo Numbers',
   ResetData = '[BingoGame] Reset Data',
 }
 
@@ -33,6 +34,11 @@ export class Bingo implements Action {
   constructor(public payload: { board: Board }) { }
 }
 
+export class SetBingoNumbers implements Action {
+  readonly type = BingoGameActionTypes.SetBingoNumbers;
+  constructor(public payload: { bingoNumbers: number[] }) { }
+}
+
 export class ResetData implements Action {
   readonly type = BingoGameActionTypes.ResetData;
 }
@@ -42,5 +48,6 @@ AddBoard |
 StartGame |
 EndGame |
 Bingo |
+SetBingoNumbers |
 ResetData |
 DrawNumber;
